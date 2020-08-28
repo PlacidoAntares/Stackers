@@ -1,0 +1,13 @@
+This game was originally planned for Android/mobile devices
+The version in this zip file is a PC demo
+
+Gameplay mechanics:
+Players can only left click on white cubes
+Grey cubes will change into either red,blue or white after certain time.
+Red Cubes will only disapear when lined up horizontally in 3 or more groups.
+Blue Cubes will only disapear when lined up vertically in 3 or more groups.
+Game objective:
+Prevent the cubes from stacking towards the top of the screen for as long as you can.
+
+Notes:
+Defeat conditions are still buggy and may or may not trigger properly.

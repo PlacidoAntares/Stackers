@@ -5,13 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject clickedCube;
-    public ScoreKeeper scoreKeeper;
     public bool playerGameOver;
     CubeData cubeDataP;
-    // Start is called before the first frame update
+        // Start is called before the first frame update
     void Start()
     {
-        scoreKeeper = GameObject.Find("ScoreKeeper").GetComponent<ScoreKeeper>();
     }
 
     // Update is called once per frame
@@ -40,11 +38,15 @@ public class Player : MonoBehaviour
                     {
                         clickedCube = c.gameObject;
                         cubeDataP = clickedCube.GetComponent<CubeData>();
+                        for (int i = 0; i < cubeDataP.BoxList.Length; i++)
+                        {
+                            if (cubeDataP.BoxList[i] != null && cubeDataP.BoxList[i].gameObject.tag != "Ground")
+                            {
+                                cubeDataP.BoxList[i].SetActive(false);
+                            }
+                            
+                        }
                         clickedCube.SetActive(false);
-                        scoreKeeper.cubesActive--;
-                        scoreKeeper.score++;
-                        scoreKeeper.scoreTxt.text = scoreKeeper.score.ToString();
-                        scoreKeeper.activeCubesTxt.text = scoreKeeper.cubesActive.ToString();
                     }
                 }
             }

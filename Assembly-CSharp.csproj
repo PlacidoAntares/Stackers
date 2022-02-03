@@ -58,13 +58,13 @@
     <Compile Include="Assets\Scripts\NonMVC\CubeCounter.cs" />
     <Compile Include="Assets\Scripts\MVC\Player.cs" />
     <Compile Include="Assets\Scripts\NonMVC\CubeBehavior2D.cs" />
+    <Compile Include="Assets\Scripts\MVC\ScoreKeeper.cs" />
     <Compile Include="Assets\Scripts\NonMVC\GenericPooler.cs" />
     <Compile Include="Assets\Scripts\NonMVC\Cube_Spawning.cs" />
     <Compile Include="Assets\Scripts\MVC\CubeData.cs" />
     <Compile Include="Assets\Scripts\MVC\SpawnerData.cs" />
     <Compile Include="Assets\Scripts\MVC\CubeManager.cs" />
     <Compile Include="Assets\Scripts\NonMVC\PlayerControls.cs" />
-    <Compile Include="Assets\Scripts\MVC\ScoreKeeper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

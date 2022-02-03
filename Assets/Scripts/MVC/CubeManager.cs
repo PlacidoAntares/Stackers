@@ -51,14 +51,10 @@ public class CubeManager : MonoBehaviour
         {
             for (int i = 0; i < spawnerData.cubesPerRow - 1; i++)
             {
-                tempCube = Instantiate(spawnerData.Cube, spawnerData.spawnPoints[i], Quaternion.identity);
+                tempCube = Instantiate(spawnerData.Cube, spawnerData.spawnPoints[i] + new Vector2(0,1.0f), Quaternion.identity);
                 container.CubeList.Add(tempCube);
                 cubeData = tempCube.GetComponent<CubeData>();
                 cubeData.spawnerID = i;
-                cubeData.BoxID = spawnerData.CubeAmt;
-                spawnerData.CubeAmt++;
-                scoreKeeper.cubesActive++;
-                scoreKeeper.activeCubesTxt.text = scoreKeeper.cubesActive.ToString();
             }
         }         
     }
@@ -90,61 +86,43 @@ public class CubeManager : MonoBehaviour
     {
         foreach (GameObject cube in container.CubeList)
         {
-            if (cube.activeSelf == true ) //code only runs if the cube is active.
+            if (cube.activeSelf == true) //code only runs if the cube is active.
             {
-                cubeData = cube.GetComponent<CubeData>();
-                //Active red cubes can only connect horizontally
-                //use index 0-1 for checking if the cube has red cubes beside it.
-                //0 for left 1 for right.
-                if (cubeData.BoxList[0] != null && cubeData.BoxList[1] != null && cubeData.isMoving != true)
-                {                    
-                    
-                    tempCubeData = cubeData.BoxList[0].GetComponent<CubeData>();
-                    cubeData.BoxList[0].transform.position = spawnerData.spawnPoints[tempCubeData.spawnerID];
-                    tempCubeData.CleanBoxList();
-                    cubeData.BoxList[0].SetActive(false);
-                    //
-                    tempCubeData = cubeData.BoxList[1].GetComponent<CubeData>();
-                    cubeData.BoxList[1].transform.position = spawnerData.spawnPoints[tempCubeData.spawnerID];
-                    tempCubeData.CleanBoxList();
-                    cubeData.BoxList[1].SetActive(false);
-                    //
-                    cube.transform.position = spawnerData.spawnPoints[cubeData.spawnerID];
-
-                    cubeData.CleanBoxList();
-                    cube.SetActive(false);
-                    //add +3 to score
-                    scoreKeeper.cubesActive -= 3;
-                    scoreKeeper.score += 3;
-                    scoreKeeper.scoreTxt.text = scoreKeeper.score.ToString();
-                    scoreKeeper.activeCubesTxt.text = scoreKeeper.cubesActive.ToString();
+                //Use BoxList Index 0-1 for Red cubes
+                //0 for left 1 for right
+                //Red cubes only connect sideways
+                if (cube.gameObject.tag == "Red")
+                {
+                    cubeData = cube.GetComponent<CubeData> ();
+                    if (cubeData.BoxList[0] != null && cubeData.BoxList[1] != null)
+                    {
+                        tempCubeData = cubeData.BoxList[0].GetComponent<CubeData>();
+                        tempCubeData.CleanBoxList ();
+                        cubeData.BoxList[0].SetActive(false);
+                        tempCubeData = cubeData.BoxList[1].GetComponent<CubeData>();
+                        tempCubeData.CleanBoxList();
+                        cubeData.BoxList[1].SetActive(false);
+                        cube.SetActive(false);
+                    }
                 }
-                //Active blue cubes can only connect vertically
-                //use index 2-3 for checking if the cube has blue cubes above and below it
-                if (cubeData.BoxList[2] != null && cubeData.BoxList[3] != null && cubeData.isMoving != true)
-                {   
-                    tempCubeData = cubeData.BoxList[2].GetComponent<CubeData>();
-                    cubeData.BoxList[2].transform.position = spawnerData.spawnPoints[tempCubeData.spawnerID];
-                    tempCubeData.CleanBoxList();
-                    cubeData.BoxList[2].SetActive(false);
-                    //
-                    tempCubeData = cubeData.BoxList[3].GetComponent<CubeData>();
-                    cubeData.BoxList[3].transform.position = spawnerData.spawnPoints[tempCubeData.spawnerID];
-                    tempCubeData.CleanBoxList();
-                    cubeData.BoxList[3].SetActive(false);
-                    //
-                    cube.transform.position = spawnerData.spawnPoints[cubeData.spawnerID];
-                    cubeData.CleanBoxList();
-                    cube.SetActive(false);
-                    //add +3 to score
-                    scoreKeeper.cubesActive -= 3;
-                    scoreKeeper.score += 3;
-                    scoreKeeper.scoreTxt.text = scoreKeeper.score.ToString();
-                    scoreKeeper.activeCubesTxt.text = scoreKeeper.cubesActive.ToString();
-
+                //Use BoxList Index 2-3 for Blue cubes
+                //2 for up 3 for down
+                //Blue cubes only connect vertically
+                else if (cube.gameObject.tag == "Blue")
+                {
+                    cubeData = cube.GetComponent<CubeData>();
+                    if (cubeData.BoxList[2] != null && cubeData.BoxList[3] != null)
+                    {                       
+                        tempCubeData = cubeData.BoxList[2].GetComponent<CubeData>();
+                        tempCubeData.CleanBoxList();
+                        cubeData.BoxList[2].SetActive(false);
+                        //
+                        tempCubeData = cubeData.BoxList[3].GetComponent<CubeData>();
+                        tempCubeData.CleanBoxList();
+                        cubeData.BoxList[3].SetActive(false);
+                        cube.SetActive(false);
+                    }
                 }
-
-
             }
         }
     }

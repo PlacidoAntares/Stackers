@@ -9,10 +9,11 @@ public class ScoreKeeper : MonoBehaviour
     public int cubesActive;
     public Text scoreTxt;
     public Text activeCubesTxt;
+    public CubeDataContainer cubeDataContainer;
     // Start is called before the first frame update
     void Start()
     {
-        
+        cubeDataContainer = GameObject.Find("CubeDataHolder").GetComponent<CubeDataContainer>();
     }
 
     // Update is called once per frame

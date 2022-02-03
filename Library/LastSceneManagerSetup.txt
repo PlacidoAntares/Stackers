@@ -1,4 +1,5 @@
 sceneSetups:
-- path: Assets/StackerzPackage/Stackers.unity
+- path: Assets/Scenes/MVC/MVCStackerz.unity
   isLoaded: 1
   isActive: 1
+  isSubScene: 0

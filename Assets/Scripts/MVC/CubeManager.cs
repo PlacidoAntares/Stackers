@@ -22,7 +22,7 @@ public class CubeManager : MonoBehaviour
         scoreKeeper = GameObject.Find("ScoreKeeper").GetComponent<ScoreKeeper>();
         player = GameObject.Find("PlayerControl").GetComponent<Player>();
         InvokeRepeating("SpawnCubes", 0.0f, spawnDelay);
-        InvokeRepeating("ActivateCubes", 0.0f, spawnDelay);
+        InvokeRepeating("ActivateCubes", 0.0f, spawnDelay + 1.0f);
         gameOver = false;
     }
     // Update is called once per frame
@@ -40,8 +40,8 @@ public class CubeManager : MonoBehaviour
     {
         if (scoreKeeper.cubesActive >= spawnerData.MaxCubeAmt)
         {
-            //gameOver = true;
-            //player.playerGameOver = true;
+            gameOver = true;
+            player.playerGameOver = true;
         }
     }
 
@@ -55,6 +55,7 @@ public class CubeManager : MonoBehaviour
                 container.CubeList.Add(tempCube);
                 cubeData = tempCube.GetComponent<CubeData>();
                 cubeData.spawnerID = i;
+                spawnerData.CubeAmt++;
             }
         }         
     }
@@ -74,9 +75,6 @@ public class CubeManager : MonoBehaviour
                     cubeData.SetSprite();
                     cubeData.CleanBoxList();
                     cubeData.isMoving = true;
-                    scoreKeeper.cubesActive++;
-                    scoreKeeper.scoreTxt.text = scoreKeeper.score.ToString();
-                    scoreKeeper.activeCubesTxt.text = scoreKeeper.cubesActive.ToString();
                 }
             }
         }
@@ -96,13 +94,16 @@ public class CubeManager : MonoBehaviour
                     cubeData = cube.GetComponent<CubeData> ();
                     if (cubeData.BoxList[0] != null && cubeData.BoxList[1] != null)
                     {
+                        
                         tempCubeData = cubeData.BoxList[0].GetComponent<CubeData>();
                         tempCubeData.CleanBoxList ();
                         cubeData.BoxList[0].SetActive(false);
+                        
                         tempCubeData = cubeData.BoxList[1].GetComponent<CubeData>();
                         tempCubeData.CleanBoxList();
                         cubeData.BoxList[1].SetActive(false);
                         cube.SetActive(false);
+                        scoreKeeper.score++;
                     }
                 }
                 //Use BoxList Index 2-3 for Blue cubes
@@ -112,15 +113,18 @@ public class CubeManager : MonoBehaviour
                 {
                     cubeData = cube.GetComponent<CubeData>();
                     if (cubeData.BoxList[2] != null && cubeData.BoxList[3] != null)
-                    {                       
+                    {
+                        
                         tempCubeData = cubeData.BoxList[2].GetComponent<CubeData>();
                         tempCubeData.CleanBoxList();
                         cubeData.BoxList[2].SetActive(false);
                         //
+                        
                         tempCubeData = cubeData.BoxList[3].GetComponent<CubeData>();
                         tempCubeData.CleanBoxList();
                         cubeData.BoxList[3].SetActive(false);
                         cube.SetActive(false);
+                        scoreKeeper.score++;
                     }
                 }
             }

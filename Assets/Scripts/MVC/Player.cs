@@ -7,9 +7,11 @@ public class Player : MonoBehaviour
     public GameObject clickedCube;
     public bool playerGameOver;
     CubeData cubeDataP;
+    ScoreKeeper scoreKeeper;
         // Start is called before the first frame update
     void Start()
     {
+        scoreKeeper = GameObject.Find("ScoreKeeper").GetComponent<ScoreKeeper>();
     }
 
     // Update is called once per frame
@@ -42,11 +44,13 @@ public class Player : MonoBehaviour
                         {
                             if (cubeDataP.BoxList[i] != null && cubeDataP.BoxList[i].gameObject.tag != "Ground")
                             {
-                                cubeDataP.BoxList[i].SetActive(false);
+                                cubeDataP.BoxList[i].SetActive(false);                               
+                                scoreKeeper.score += 1;
                             }
-                            
+
                         }
                         clickedCube.SetActive(false);
+                        scoreKeeper.score += 1;
                     }
                 }
             }

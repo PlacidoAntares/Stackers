@@ -8,10 +8,14 @@ public class Player : MonoBehaviour
     public bool playerGameOver;
     CubeData cubeDataP;
     ScoreKeeper scoreKeeper;
+    CubeManager cubeManager;
+    SpawnerData spawnerData;
         // Start is called before the first frame update
     void Start()
     {
         scoreKeeper = GameObject.Find("ScoreKeeper").GetComponent<ScoreKeeper>();
+        cubeManager = GameObject.Find("CubeManager").GetComponent<CubeManager>();
+        spawnerData = GameObject.Find("CubeSpawnerData").GetComponent<SpawnerData>();
     }
 
     // Update is called once per frame
@@ -46,11 +50,15 @@ public class Player : MonoBehaviour
                             {
                                 cubeDataP.BoxList[i].SetActive(false);                               
                                 scoreKeeper.score += 1;
+                                scoreKeeper.activeCubes -= 1;
+                                spawnerData.activeCubeAmt -= 1;
                             }
 
                         }
                         clickedCube.SetActive(false);
                         scoreKeeper.score += 1;
+                        scoreKeeper.activeCubes -= 1;
+                        spawnerData.activeCubeAmt -= 1;
                     }
                 }
             }

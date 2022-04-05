@@ -6,45 +6,30 @@ using UnityEngine.UI;
 public class ScoreKeeper : MonoBehaviour
 {
     public int score;
-    public int cubesActive;
     public int activeCubes;
     public Text scoreTxt;
     public Text activeCubesTxt;
     public CubeDataContainer cubeDataContainer;
+    public CubeManager cubeManager;
+    public SpawnerData spawnerData;
     // Start is called before the first frame update
     void Start()
     {
         cubeDataContainer = GameObject.Find("CubeDataHolder").GetComponent<CubeDataContainer>();
-
+        cubeManager = GameObject.Find("CubeManager").GetComponent <CubeManager>();
+        spawnerData = GameObject.Find("CubeSpawnerData").GetComponent<SpawnerData>();
     }
 
     // Update is called once per frame
     void Update()
     {
         SetScore();
-        TallyActiveCubes();
     }
 
-    void TallyActiveCubes()
-    {
-        activeCubes = CountActiveCubes();
-    }
 
-    private int CountActiveCubes()
-    {
-        cubesActive = 0;
-        for (int i = 0; i < cubeDataContainer.CubeList.Count; i++)
-        {
-            if (cubeDataContainer.CubeList[i].activeSelf == true)
-            {
-                cubesActive++;
-            }
- 
-        }
-        return cubesActive;
-    }
     void SetScore()
     {
+        activeCubes = spawnerData.activeCubeAmt;
         activeCubesTxt.text = activeCubes.ToString();
         scoreTxt.text = score.ToString();
     }

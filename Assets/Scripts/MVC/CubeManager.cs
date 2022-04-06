@@ -23,7 +23,7 @@ public class CubeManager : MonoBehaviour
         scoreKeeper = GameObject.Find("ScoreKeeper").GetComponent<ScoreKeeper>();
         player = GameObject.Find("PlayerControl").GetComponent<Player>();
         InvokeRepeating("SpawnCubes", 0.0f, spawnDelay);
-        InvokeRepeating("ActivateCubes", 0.0f, spawnDelay);
+        InvokeRepeating("ActivateCubes", 0.0f, spawnDelay + 1.0f);
         gameOver = false;
     }
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class CubeManager : MonoBehaviour
 
     void SpawnCubes()
     {
-        if (spawnerData.CubeAmt < (spawnerData.MaxCubeAmt + 1) && gameOver != true)
+        if ((spawnerData.CubeAmt < (spawnerData.MaxCubeAmt + 1) || spawnerData.activeCubeAmt < (spawnerData.maxActiveCubeAmt + 1)) && gameOver != true)
         {
             for (int i = 0; i < spawnerData.cubesPerRow - 1; i++)
             {
@@ -78,7 +78,6 @@ public class CubeManager : MonoBehaviour
                     cubeData.SetSprite();
                     cubeData.CleanBoxList();
                     cubeData.isMoving = true;
-                    scoreKeeper.activeCubes++;
                     spawnerData.activeCubeAmt++;
                 }
             }

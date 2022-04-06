@@ -79,7 +79,7 @@ public class CubeData : MonoBehaviour
         }
         else if (spriteRoll > 50 && spriteRoll <= 100)//40% chance
         {
-            spriteID = 1;
+            spriteID = 0;
         }
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = BoxSprites[spriteID];
@@ -88,11 +88,11 @@ public class CubeData : MonoBehaviour
     public void SetSprite()
     {
         spriteRoll = Random.Range(0, 100);
-        if (spriteRoll > 0 && spriteRoll <= 20) //20% chance
+        if (spriteRoll > 0 && spriteRoll <= 10) //10% chance
         {
             spriteID = 3;
         }
-        else if (spriteRoll > 20 && spriteRoll <= 40)//20% chance
+        else if (spriteRoll > 10 && spriteRoll <= 40)//30% chance
         {
             spriteID = 2;
         }
